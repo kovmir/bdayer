@@ -64,6 +64,7 @@ int
 main(void)
 {
 	FILE *roster_file;
+	char *tmp;
 	char buf[BUF_SIZE];
 	unsigned int bmonth, bday;
 
@@ -78,8 +79,9 @@ main(void)
 		/* Skip comments and empty lines. */
 		if (buf[0] == '#' || buf[0] == '\n')
 			continue;
-		/* Discard the newline character. */
-		*strchr(buf, '\n') = '\0';
+		/* Discard comments at the end and newline characters. */
+		if ( (tmp = strchr(buf, '#')) || (tmp = strchr(buf, '\n')) )
+			*tmp = 0;
 
 		/* Parse date. */
 		if (sscanf(buf, "%u"ROSTER_SEPARATOR"%u"ROSTER_SEPARATOR,
