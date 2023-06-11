@@ -33,17 +33,18 @@ jobs:
 
       - name: Create a test roster
         run: |
-          echo <<EOF > roster.txt
-          # <day>,<month>,<anything>
-          # Like that...
-          11,21,Name Surname
-          06,22,Me
-          07,14,Some day in the future
-          06,11,Billy
+          echo '# <day>,<month>,<anything>' > roster.txt
+          echo '# Like that...' >> roster.txt
+          echo '11,21,Name Surname' >> roster.txt
+          echo '06,22,Me' >> roster.txt
+          echo '07,14,Some day in the future' >> roster.txt
+          echo '06,11,Billy' >> roster.txt
+          echo >> roster.txt
+          echo '03,14,Albert Einstein' >> roster.txt
+          echo '03,01,Frédéric Chopin' >> roster.txt
 
-          03,14,Albert Einstein
-          03,01,Frédéric Chopin
-          EOF
+      - name: See directory structure
+        run: ls -l
 
       - name: Run bdayer
         run: BDAYER_ROSTER=$(pwd)/roster.txt ./bdayer
