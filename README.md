@@ -48,7 +48,8 @@ bdayer
 ```
 
 Put your roster in Git, then use its power to sync it across machines and
-commit changes.
+commit changes. `bdayer` never edits your roster, instead it will let your
+favorite text editor do the job.
 
 # FAQ
 
