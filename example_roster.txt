@@ -1,0 +1,12 @@
+# <day>,<month>,<anything>
+# Like that...
+11,21,Name Surname
+06,22,Me
+07,14,Some day in the future
+06,11,Billy
+
+03,14,Albert Einstein
+03,01,Frédéric Chopin
+
+# Comments are allowed, empty lines are skipped.
+# I am going to call this file a roster.
