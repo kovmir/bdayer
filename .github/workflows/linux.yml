@@ -1,0 +1,49 @@
+name: Ubuntu
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Install dependencies
+      run: sudo apt-get install -y build-essential
+
+    - name: Compile
+      run: make
+
+    - uses: actions/upload-artifact@v3
+      with:
+        name: bdayer
+        path: ./bdayer
+
+  test:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - uses: actions/download-artifact@v3
+        with:
+          name: bdayer
+          path: .
+
+      - name: Set file permissions
+        run: chmod 0755 ./bdayer
+
+      - name: Create a test roster
+        run: |
+          echo <<EOF > roster.txt
+          # <day>,<month>,<anything>
+          # Like that...
+          11,21,Name Surname
+          06,22,Me
+          07,14,Some day in the future
+          06,11,Billy
+
+          03,14,Albert Einstein
+          03,01,Frédéric Chopin
+          EOF
+
+      - name: Run bdayer
+        run: BDAYER_ROSTER=$(pwd)/roster.txt ./bdayer
