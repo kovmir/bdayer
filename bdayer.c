@@ -9,17 +9,14 @@
 #define ROSTER_LOCATION_ENV "BDAYER_ROSTER"
 /* A roster character used to separate dates and names. */
 #define ROSTER_SEPARATOR ","
-
 /* Convert the number of seconds to the number days. */
 #define SECONDS_TO_DAYS(seconds) ((seconds) / (60 * 60 * 24))
 
-/* Prints error and terminate the execution. */
+/* Prints error and terminates the execution. */
 static inline int print_err(const char *);
 /* Returns a name pointer within a line from the roster. */
 static inline char *name_pt(const char *);
-/* Count the days left to the given date.
- * A negative number is returned to indicate
- * that today is past the given date. */
+/* Count the days left to a given date. */
 static int days_to(unsigned int, unsigned int, int *);
 
 inline int
