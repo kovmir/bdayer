@@ -20,7 +20,7 @@ static inline char *name_pt(const char *);
 /* Count the days left to the given date.
  * A negative number is returned to indicate
  * that today is past the given date. */
-static int days_to(unsigned int, unsigned int);
+static int days_to(unsigned int, unsigned int, int *);
 
 inline int
 print_err(const char *msg)
@@ -40,24 +40,23 @@ name_pt(const char* bday)
 }
 
 int
-days_to(unsigned int bmonth, unsigned int bday)
+days_to(unsigned int bmonth, unsigned int bday, int *diffdays)
 {
 	time_t current_time = time(NULL);
 	struct tm *current_date = localtime(&current_time);
 	struct tm  birth_date = {
-		.tm_mon = bmonth-1, /* Count from 0. */
+		.tm_mon  = bmonth-1, /* Count from 0. */
 		.tm_mday = bday,
 		.tm_year = current_date->tm_year,
 	};
 
 	time_t birth_time = mktime(&birth_date);
 	if (birth_time == -1)
-		print_err("Invalid date.");
+		return birth_time;
 
 	double difference = difftime(birth_time, current_time);
-	int days = SECONDS_TO_DAYS(difference);
-
-	return days;
+	*diffdays = SECONDS_TO_DAYS(difference);
+	return 0;
 }
 
 int
@@ -67,6 +66,7 @@ main(void)
 	char *tmp;
 	char buf[BUF_SIZE];
 	unsigned int bmonth, bday;
+	int diffdays;
 
 	if (!getenv(ROSTER_LOCATION_ENV))
 		print_err("$"ROSTER_LOCATION_ENV" is undefined.");
@@ -86,12 +86,17 @@ main(void)
 
 		/* Parse date. */
 		if (sscanf(buf, "%u"ROSTER_SEPARATOR"%u"ROSTER_SEPARATOR,
-		           &bmonth, &bday) != 2)
+		           &bmonth, &bday) != 2) {
 			fprintf(stderr, "Invalid syntax: %s\n", buf);
-
+			continue;
+		}
+		/* Count due days. */
+		if (days_to(bmonth, bday, &diffdays)) {
+			fprintf(stderr, "Invalid syntax: %s\n", buf);
+			continue;
+		}
 		/* Print the result. */
-		printf("%d day(s)\t%s\n",
-		       days_to(bmonth, bday), name_pt(buf));
+		printf("%d day(s)\t%s\n", diffdays, name_pt(buf));
 	}
 
 	fclose(roster_file);
