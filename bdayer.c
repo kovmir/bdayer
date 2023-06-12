@@ -80,7 +80,8 @@ main(void)
 		if (buf[0] == '#' || buf[0] == '\n')
 			continue;
 		/* Discard comments at the end and newline characters. */
-		if ( (tmp = strchr(buf, '#')) || (tmp = strchr(buf, '\n')) )
+		if ( (tmp = strchr(buf, '#')) != NULL ||
+		     (tmp = strchr(buf, '\n')) != NULL )
 			*tmp = 0;
 
 		/* Parse date. */
