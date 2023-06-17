@@ -1,11 +1,13 @@
 /* ISC License
  * Copyright 2023 Ivan Kovmir */
 
+/* Includes */
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
 
+/* Constants and Macros */
 #define BUF_SIZE 256
 
 /* Environmental variable that points to the roster. */
@@ -15,6 +17,7 @@
 /* Convert the number of seconds to the number days. */
 #define SECONDS_TO_DAYS(seconds) ((seconds) / (60 * 60 * 24))
 
+/* Function Prototypes */
 /* Prints error and terminates the execution. */
 static inline int print_err(const char *);
 /* Returns a name pointer within a line from the roster. */
