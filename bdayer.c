@@ -1,3 +1,6 @@
+/* ISC License
+ * Copyright 2023 Ivan Kovmir */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
