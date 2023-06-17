@@ -91,3 +91,8 @@ A: I think you got the point.
 **Q: Right, but how do I ...?**
 
 A: The source code is available.
+
+# CONTRIBUTING
+
+When submitting PRs, please maintain the
+[coding style](https://suckless.org/coding_style/) used for the project.
