@@ -2,6 +2,8 @@
 
 UNIX birthday tracker. No dependencies, just a ~100 lines of pure C99.
 
+# PREVIEW
+
 ```
 162 day(s)      Name Surname
 10 day(s)       Me
