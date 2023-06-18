@@ -6,6 +6,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
+#include <math.h>
 
 /* Constants and Macros */
 #define BUF_SIZE 256
@@ -58,13 +59,7 @@ days_to(unsigned int bmonth, unsigned int bday, int *diffdays)
 		return birth_time;
 
 	double difference = difftime(birth_time, current_time);
-	/* We divide the amount of seconds by an integer to get that same time
-	 * period in days. This is integer division, thus, the floating point
-	 * part gets discarded. The part after the dot means there is less than
-	 * 24 hours left untill one more day, so we add 1 to the total count. 
-	 *
-	 * For instance: 3 days and 16 hours will be counted as 4 days. */
-	*diffdays = SECONDS_TO_DAYS(difference)+1;
+	*diffdays = ceil(SECONDS_TO_DAYS(difference));
 	return 0;
 }
 
